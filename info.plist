@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>net.johnnycakes.alfred-workon-virtualenv</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6A9F70D2-F73E-4F96-870C-82A47DA4863A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>1A452E3A-8047-4910-ABA4-3708CE6B9087</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>Open project folder</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>5FBE752E-7557-4698-9F2D-80435E613950</string>
+				<key>modifiers</key>
+				<integer>262144</integer>
+				<key>modifiersubtext</key>
+				<string>Open the virtualenv folder</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>BC27E8DA-6A74-4C8C-ABDE-D3126DACBE0C</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string>Show installed packages</string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>7ED9DC05-8F40-427D-AD2A-205FB331DFA7</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Copy installed packages to clipboard</string>
+			</dict>
+		</array>
+		<key>BC27E8DA-6A74-4C8C-ABDE-D3126DACBE0C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4FF901D8-9641-455A-AB86-AC0E557D3AA3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Jonathan McAuliffe</string>
+	<key>description</key>
+	<string>Shows all virtualenvs and let's you start one.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Workon Virtualenv</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)tell application "iTerm"
+    make new terminal
+    tell the current terminal
+        activate current session
+        launch session "Default Session"
+        tell the last session
+            write text "workon " &amp; q 
+        end tell
+    end tell
+end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>6A9F70D2-F73E-4F96-870C-82A47DA4863A</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>ven</string>
+				<key>runningsubtext</key>
+				<string>Loadings virtualenvs...</string>
+				<key>script</key>
+				<string>/usr/bin/python workon.py "{query}"</string>
+				<key>subtext</key>
+				<string>The project will be activated in a new terminal.</string>
+				<key>title</key>
+				<string>Select VirtualEnv Project</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>source ~/.zshrc
+open ${PROJECT_HOME}/{query}</string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>1A452E3A-8047-4910-ABA4-3708CE6B9087</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>source ~/.zshrc
+open ${WORKON_HOME}/{query}</string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>5FBE752E-7557-4698-9F2D-80435E613950</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>source ~/.zshrc
+x=$(${WORKON_HOME}/{query}/bin/pip freeze)
+echo $x | pbcopy
+echo $x | sed 's/==/ (/g' | sed 's/$/)/g'</string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>BC27E8DA-6A74-4C8C-ABDE-D3126DACBE0C</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.output.largetype</string>
+			<key>uid</key>
+			<string>4FF901D8-9641-455A-AB86-AC0E557D3AA3</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>source ~/.zshrc
+x=$(${WORKON_HOME}/{query}/bin/pip freeze)
+echo $x | pbcopy</string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7ED9DC05-8F40-427D-AD2A-205FB331DFA7</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>1A452E3A-8047-4910-ABA4-3708CE6B9087</key>
+		<dict>
+			<key>ypos</key>
+			<real>160</real>
+		</dict>
+		<key>4FF901D8-9641-455A-AB86-AC0E557D3AA3</key>
+		<dict>
+			<key>ypos</key>
+			<real>400</real>
+		</dict>
+		<key>5FBE752E-7557-4698-9F2D-80435E613950</key>
+		<dict>
+			<key>ypos</key>
+			<real>280</real>
+		</dict>
+		<key>6A9F70D2-F73E-4F96-870C-82A47DA4863A</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>7ED9DC05-8F40-427D-AD2A-205FB331DFA7</key>
+		<dict>
+			<key>ypos</key>
+			<real>520</real>
+		</dict>
+		<key>BC27E8DA-6A74-4C8C-ABDE-D3126DACBE0C</key>
+		<dict>
+			<key>ypos</key>
+			<real>400</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
